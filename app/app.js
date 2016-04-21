@@ -7,6 +7,7 @@ angular.module('ticketSystemApp', [
   'ticketSystemApp.users.services',
   'ticketSystemApp.users.authentication',
   'ticketSystemApp.home',
+  'ticketSystemApp.identity',
   'ticketSystemApp.projects',
 ])
 

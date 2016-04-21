@@ -28,3 +28,9 @@
   content: "";
   padding: 0;
 }
+
+.border {
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid lightgrey;
+}

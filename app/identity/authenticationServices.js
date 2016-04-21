@@ -1,20 +1,23 @@
 'use strict';
 
 angular.module('ticketSystemApp.users.authentication', [])
-    .factory('authentication', ['$http', '$q', 'BASE_URL', function($http, $q, BASE_URL) {
+    .factory('authentication', ['identity', function(BASE_URL, identity) {
 
         function login(userData) {
-            var deferred = $q.defer();
-            $http.post(BASE_URL + 'api/Token', userData)
-                .then(function(result) {
-                    console.log(result.data);
-                    deferred.resolve(result.data);
-                }, function(err) {
-                    deferred.reject(err);
-                });
-            return deferred.promise;
+            return identity.post('api/Token', userData);
         }
+
+        function logout() {
+            return identity.post('api/Token', userData);
+        }
+
+        function register() {
+            return identity.post('api/Account/Register', userData);
+        }
+
         return {
-            loginUser: login
+            loginUser: login,
+            loginRegisterUser: register,
+            logoutUser: logout,
         };
     }]);
