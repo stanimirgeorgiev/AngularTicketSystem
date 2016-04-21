@@ -17,6 +17,8 @@
 <body>
   <ul class="menu">
     <li><a href="#/users">users</a></li>
+    <li><a href="#/">home</a></li>
+    <li><a href="#/projects">projects</a></li>
   </ul>
 
   <!--[if lt IE 7]>
@@ -31,6 +33,14 @@
   <script src="app/bower_components/angular/angular.js"></script>
   <script src="app/bower_components/angular-route/angular-route.js"></script>
   <script src="app/app.js"></script>
-  <script src="app/users/Users.js"></script>
+
+  <script src="app/identity/authenticationServices.js"></script>
+
+  <script src="app/users/UsersController.js"></script>
+  <script src="app/users/userServices.js"></script>
+
+  <script src="app/projects/ProjectsController.js"></script>
+
+  <script src="app/home/HomeController.js"></script>
 </body>
 </html>
