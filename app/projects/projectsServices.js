@@ -2,9 +2,9 @@
 
 angular.module('ticketSystemApp.projets.services',[])
 
-.factory('projectServices', ['identity', function (identity) {
+.factory('projectServices', ['router', function (router) {
     function getByFilter(argument) {
-        return identity.
+        // return router.
     }
 
     return {

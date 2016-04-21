@@ -3,11 +3,12 @@
 // Declare app level module which depends on views, and components
 angular.module('ticketSystemApp', [
   'ngRoute',
+  'ngCookies',
   'ticketSystemApp.users',
   'ticketSystemApp.users.services',
-  'ticketSystemApp.users.authentication',
+  'ticketSystemApp.identity.authentication',
   'ticketSystemApp.home',
-  'ticketSystemApp.identity',
+  'ticketSystemApp.identity.router',
   'ticketSystemApp.projects',
 ])
 

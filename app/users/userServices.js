@@ -1,18 +1,19 @@
 'use strict';
 
 angular.module('ticketSystemApp.users.services', [])
-    .factory('userServices', ['identity', function(identity) {
 
-        function getAllUsers() {
-            return identity.get('/users');
+    .factory('userServices', ['router',
+        function(router) {
+            function getAllUsers() {
+                return router.get('/users', true);
+            }
+
+            function getCurrentUser() {
+                return router.get('users/me', true);
+            }
+            return {
+                allUsers: getAllUsers,
+                currentUser: getCurrentUser
+            };
         }
-
-        function getCurrentUser() {
-            return identity.get('users/me');
-        }
-
-        return {
-            allUsers: getAllUsers,
-            currentUser: getCurrentUser
-        };
-    }]);
+    ]);
