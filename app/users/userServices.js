@@ -15,8 +15,8 @@ angular.module('ticketSystemApp.users.services', [])
             return router.get('users/me');
         }
         return {
-            allUsers: getAllUsers,
-            currentUser: getCurrentUser
+            getAllUsers: getAllUsers,
+            getCurrentUser: getCurrentUser
         };
     }
 ]);

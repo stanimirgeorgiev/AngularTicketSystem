@@ -6,25 +6,26 @@ angular.module('ticketSystemApp.common', [])
         '$cookies',
         'identity',
         'authentication',
-        'AUTHENTICATION_COOKIE_KEY',
+        'notifyingService',
         function(
             $scope,
             $cookies,
             identity,
             authentication,
-            AUTHENTICATION_COOKIE_KEY
+            notifyingService
         ) {
-            $scope.isAuthenticated = authentication.isAuthenticated();
-            console.log('V maina scopa e : ' + $scope.isAuthenticated);
+            // identity.getCurrentUser()
+            //     .then(function(user) {
+            //         $scope.currentUser = user;
+            //         $scope.isAuthenticated = true;
+            //     });
 
-            identity.getCurrentUser()
-                .then(function(user) {
-                    console.log('V main controlera sym');
-                    console.log(authentication.isAuthenticated());
-                    console.log(user);
-                    $scope.currentUser = user;
-                    $scope.isAuthenticated = authentication.isAuthenticated();
+            notifyingService.subscribeIsAuthorized($scope, function() {
+                $scope.isAuthenticated = true;
+            });
 
-                });
+            notifyingService.subscribeIsUnauthorized($scope, function() {
+                $scope.isAuthenticated = false;
+            });
         }
     ]);

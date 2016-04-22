@@ -7,9 +7,26 @@ angular.module('ticketSystemApp.users', [])
     function(
         $routeProvider
     ) {
+        var routeChecks = {
+            authenticated: [
+                '$q',
+                'authentication',
+                function(
+                    $q,
+                    authentication
+                ) {
+                    if (authentication.isAuthenticated()) {
+                        return $q.when(true);
+                    }
+                    return $q.reject('Unauthorized Access');
+                }
+            ]
+        };
+
         $routeProvider.when('/users', {
             templateUrl: 'app/users/users.html',
             controller: 'UsersController',
+            resolve: routeChecks.authenticated
         });
     }
 ])
@@ -24,21 +41,10 @@ angular.module('ticketSystemApp.users', [])
         identity
     ) {
         $scope.proba = 'Scopa raboti v users';
-
-        // identity.getCurrentUser()
-        //     .then(function(getUser) {
-        //         $scope.getUser = getUser;
-        //     });
         identity.requestUserProfile()
             .then(function(user) {
                 $scope.currentUser = user;
 
             });
-
-
-        // userServices.allUsers()
-        //     .then(function(users) {
-        //         $scope.allUsers = users;
-        //     });
     }
 ]);

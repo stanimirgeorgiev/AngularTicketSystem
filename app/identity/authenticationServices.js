@@ -6,20 +6,24 @@ angular.module('ticketSystemApp.identity.authentication', [])
     '$cookies',
     '$http',
     '$q',
+    '$location',
     'router',
     'identity',
     'BASE_URL',
     'AUTHENTICATION_COOKIE_KEY',
     'AUTHENTICATION_COOKIE_USERNAME',
+    'notifyingService',
     function(
         $cookies,
         $http,
         $q,
+        $location,
         router,
         identity,
         BASE_URL,
         AUTHENTICATION_COOKIE_KEY,
-        AUTHENTICATION_COOKIE_USERNAME
+        AUTHENTICATION_COOKIE_USERNAME,
+        notifyingService
     ) {
         function isAuthenticated() {
             return !!$cookies.get(AUTHENTICATION_COOKIE_KEY);
@@ -39,6 +43,9 @@ angular.module('ticketSystemApp.identity.authentication', [])
 
             response.then(function(result) {
                 setAuthenticationCookies(result.access_token, result.userName);
+                notifyingService.notifyIsAuthorized();
+                identity.requestUserProfile();
+                toastr.success('Successful login')
             });
             return response;
         }
@@ -46,6 +53,11 @@ angular.module('ticketSystemApp.identity.authentication', [])
         function logout() {
             $cookies.remove(AUTHENTICATION_COOKIE_KEY);
             $cookies.remove(AUTHENTICATION_COOKIE_USERNAME);
+            $http.defaults.headers.common.Authorization = undefined;
+            identity.removeUserProfile();
+            notifyingService.notifyIsUnauthorized();
+            $location.path('/');
+            toastr.success('successful logout')
         }
 
         function register(userData) {
@@ -54,7 +66,8 @@ angular.module('ticketSystemApp.identity.authentication', [])
 
         function refreshCookie() {
             if (isAuthenticated()) {
-                $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get(AUTHENTICATION_COOKIE_KEY);
+                $http.defaults.headers.common.Authorization = $cookies.get(AUTHENTICATION_COOKIE_KEY);
+                notifyingService.notifyIsAuthorized();
                 identity.requestUserProfile();
             }
         }

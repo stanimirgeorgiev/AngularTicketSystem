@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
     <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="app/bower_components/toastr/toastr.css">
     <link rel="stylesheet" href="app/app.css">
     <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
@@ -31,7 +32,7 @@
                 </button>
             </div>
             <div class="navbar-collapse collapse" id="navbar-main">
-                <ul ng-if = "isAuthenticated" class="nav navbar-nav">
+                <ul ng-show="isAuthenticated" class="nav navbar-nav">
                     <li>
                         <a href="#/users">Users</a>
                     </li>
@@ -42,12 +43,14 @@
                         <a href="#/projects">Projects</a>
                     </li>
                     <li>
-                        <a href="#/logout" ng-controller="LogoutController" ng-click="logout(logoutUser)">Logout</a></li>
+                        <a href="#/logout">Logout</a></li>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+    <div ng-controller="HomeController"></div>
+    <!-- <div ng-controller="WelcomeController"></div> -->
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
@@ -58,6 +61,8 @@
     <script src="app/bower_components/angular/angular.js"></script>
     <script src="app/bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="app/bower_components/angular-route/angular-route.js"></script>
+    <script src="app/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="app/bower_components/jquery-ui/ui/datepicker.js"></script> -->
     <script src="app/bower_components/toastr/toastr.js"></script>
     <script src="app/app.js"></script>
     <script src="app/identity/authenticationServices.js"></script>
@@ -66,8 +71,11 @@
     <script src="app/users/UsersController.js"></script>
     <script src="app/users/userServices.js"></script>
     <script src="app/common/MainController.js"></script>
+    <script src="app/config/libConfigs.js"></script>
+    <script src="app/common/notifyingService.js"></script>
     <script src="app/projects/ProjectsController.js"></script>
     <script src="app/home/HomeController.js"></script>
+    <!-- <script src="app/welcome/WelcomeController.js"></script> -->
     <script src="app/logout/LogoutController.js"></script>
 </body>
 

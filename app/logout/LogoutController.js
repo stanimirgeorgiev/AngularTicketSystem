@@ -7,9 +7,27 @@ angular.module('ticketSystemApp.logout', [])
     function(
         $routeProvider
     ) {
+
+        var routeChecks = {
+            authenticated: [
+                '$q',
+                'authentication',
+                function(
+                    $q,
+                    authentication
+                ) {
+                    if (authentication.isAuthenticated()) {
+                        return $q.when(true);
+                    }
+                    return $q.reject('Unauthorized Access');
+                }
+            ]
+        };
+
         $routeProvider.when('/logout', {
             templateUrl: 'app/logout/logout.html',
-            controller: 'LogoutController'
+            controller: 'LogoutController',
+            resolve: routeChecks.authenticated
         });
     }
 ])
@@ -23,11 +41,9 @@ angular.module('ticketSystemApp.logout', [])
         $location,
         authentication
     ) {
-        $scope.isAuthenticated = authentication.isAuthenticated();
+        // $scope.isAuthenticated = authentication.isAuthenticated();
 
-        $scope.logout = function() {
-            authentication.logoutUser();
-            $location.path('/');
-        };
+        authentication.logoutUser();
+
     }
 ]);

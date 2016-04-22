@@ -1,42 +1,25 @@
 'use strict';
 
-angular.module('ticketSystemApp.home', [])
+angular.module('ticketSystemApp.welcome', [])
 
 .config([
     '$routeProvider',
     function(
         $routeProvider
     ) {
-        // var routeChecks = {
-        //     authenticated: [
-        //         '$q',
-        //         'authentication',
-        //         function(
-        //             $q,
-        //             authentication
-        //         ) {
-        //             if (authentication.isAuthenticated()) {
-        //                 return $q.when(true);
-        //             }
-        //             return $q.reject('Unauthorized Access');
-        //         }
-        //     ]
-        // };
-
         $routeProvider.when('/', {
-            templateUrl: 'app/home/home.html',
-            controller: 'HomeController',
-            // resolve: routeChecks.authenticated
+            templateUrl: 'app/welcome/Welcome.html',
+            controller: 'WelcomeController',
         });
     }
 ])
 
-.controller('HomeController', [
+.controller('WelcomeController', [
     '$scope',
     '$location',
     'authentication',
     'identity',
-    function HomeController(
+    function WelcomeController(
         $scope,
         $location,
         authentication,
@@ -44,15 +27,12 @@ angular.module('ticketSystemApp.home', [])
     ) {
         if (authentication.isAuthenticated()) {
             $scope.isAuthenticated = true;
-        } else {
-            $scope.isAuthenticated = false;
         }
 
         $scope.login = function(user) {
             authentication.loginUser(user)
                 .then(function(result) {
                     $location.path('/');
-                    $scope.isAuthenticated = true;
                 });
         };
 

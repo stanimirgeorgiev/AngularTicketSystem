@@ -13,6 +13,7 @@ angular.module('ticketSystemApp', [
     'ticketSystemApp.logout',
     'ticketSystemApp.common',
     'ticketSystemApp.projects',
+    'ticketSystemApp.libConfigs',
 ])
 
 .config([
@@ -32,11 +33,15 @@ angular.module('ticketSystemApp', [
                     toastr
                 ) {
                     return {
+                        'response': function(response) {
+                            console.log(response);
+                            return response;
+                        },
                         'responseError': function(rejection) {
                             if (rejection.data && rejection.data['error_description']) {
                                 toastr.error(rejection.data['error_description']);
-                            } else if (rejection.data && rejection.data.modelState && rejection.data.modelState['']) {
-                                var errors = rejection.data.modelState[''];
+                            } else if (rejection.data && rejection.data.ModelState && rejection.data.ModelState[""]) {
+                                var errors = rejection.data.ModelState[""];
                                 if (errors.length > 0) {
                                     toastr.error(errors[0]);
                                 }
@@ -64,19 +69,9 @@ angular.module('ticketSystemApp', [
             });
 
             authentication.refreshCookie();
-
-            // $rootScope.$on('$routeChangeStart', function(event) {
-            //     if (!authentication.isAuthenticated()) {
-            //         console.log('DENY');
-            //         // event.preventDefault();
-            //         $location.path('/');
-            //     } else {
-            //         console.log('ALLOW');
-            //         $location.path('/');
-            //     }
-            // });
         }
     ])
+    .constant('jQuery', $)
     .constant('toastr', toastr)
     .constant('BASE_URL', 'http://softuni-issue-tracker.azurewebsites.net/')
     .constant('AUTHENTICATION_COOKIE_KEY', '!__accessUserToken__!')

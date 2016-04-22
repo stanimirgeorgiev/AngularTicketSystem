@@ -29,20 +29,13 @@ angular.module('ticketSystemApp.identity', [])
                 },
                 requestUserProfile: function() {
                     var userProfileDeferred = $q.defer();
-                    if (currentUser) {
-                        return $q.when(currentUser);
-                    } else {
-                        userServices.currentUser()
-                            .then(function(response) {
-                                currentUser = response;
-                                deferred.resolve(currentUser);
-                                userProfileDeferred.resolve(currentUser);
-                            }, function(err) {
-                                deferred.reject(err);
-                                userProfileDeferred.reject(err);
-                            });
-                        return userProfileDeferred.promise;
-                    }
+                    userServices.getCurrentUser()
+                        .then(function(response) {
+                            currentUser = response;
+                            deferred.resolve(currentUser);
+                            userProfileDeferred.resolve(currentUser);
+                        });
+                    return userProfileDeferred.promise;
                 }
             };
         }
