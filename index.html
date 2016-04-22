@@ -2,49 +2,73 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="ticketSystemApp" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.css">
-  <link rel="stylesheet" href="app/app.css">
-  <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
-<body>
-  <ul class="menu" ng-cloak>
-    <li><a href="#/users">users</a></li>
-    <li><a href="#/">home</a></li>
-    <li><a href="#/projects">projects</a></li>
-    <li><a href="#/" ng-controller="HomeController" ng-click="logout(logoutUser)">logout</a></li>
-  </ul>
+<!--[if gt IE 8]><!-->
+<html lang="en" ng-app="ticketSystemApp" class="no-js">
+<!--<![endif]-->
 
-  <!--[if lt IE 7]>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My AngularJS App</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/normalize.css">
+    <link rel="stylesheet" href="app/bower_components/html5-boilerplate/dist/css/main.css">
+    <link rel="stylesheet" href="app/bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="app/app.css">
+    <script src="app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body ng-controller="MainController">
+    <div class="navbar navbar-default navbar-fixed-top" ng-cloak>
+        <div class="container">
+            <div class="navbar-header">
+                <a href="#/" class="navbar-brand">Simple ticketing Application</a>
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-main">
+                <ul ng-if = "isAuthenticated" class="nav navbar-nav">
+                    <li>
+                        <a href="#/users">Users</a>
+                    </li>
+                    <li>
+                        <a href="#/">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#/projects">Projects</a>
+                    </li>
+                    <li>
+                        <a href="#/logout" ng-controller="LogoutController" ng-click="logout(logoutUser)">Logout</a></li>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-
-  <div ng-view></div>
-
-  <!-- In production use:
+    <div ng-view></div>
+    <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
   -->
-  <script src="app/bower_components/angular/angular.js"></script>
-  <script src="app/bower_components/angular-cookies/angular-cookies.js"></script>
-  <script src="app/bower_components/angular-route/angular-route.js"></script>
-  <script src="app/app.js"></script>
-
-  <script src="app/identity/authenticationServices.js"></script>
-  <script src="app/identity/routerServices.js"></script>
-
-  <script src="app/users/UsersController.js"></script>
-  <script src="app/users/userServices.js"></script>
-
-  <script src="app/projects/ProjectsController.js"></script>
-
-  <script src="app/home/HomeController.js"></script>
+    <script src="app/bower_components/angular/angular.js"></script>
+    <script src="app/bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="app/bower_components/angular-route/angular-route.js"></script>
+    <script src="app/bower_components/toastr/toastr.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/identity/authenticationServices.js"></script>
+    <script src="app/identity/identityService.js"></script>
+    <script src="app/router/routerServices.js"></script>
+    <script src="app/users/UsersController.js"></script>
+    <script src="app/users/userServices.js"></script>
+    <script src="app/common/MainController.js"></script>
+    <script src="app/projects/ProjectsController.js"></script>
+    <script src="app/home/HomeController.js"></script>
+    <script src="app/logout/LogoutController.js"></script>
 </body>
+
 </html>

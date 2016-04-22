@@ -2,50 +2,69 @@
 
 angular.module('ticketSystemApp.identity.authentication', [])
 
-.factory('authentication', ['router', '$cookies', 'BASE_URL', '$http', '$q',
-    function(router, $cookies, BASE_URL, $http, $q) {
-        function setCookie(token, currentUser) {
-            $cookies.put('!__accessUserToken__!', 'Bearer ' + token);
-            $cookies.put('!__currentUser__!', currentUser);
+.factory('authentication', [
+    '$cookies',
+    '$http',
+    '$q',
+    'router',
+    'identity',
+    'BASE_URL',
+    'AUTHENTICATION_COOKIE_KEY',
+    'AUTHENTICATION_COOKIE_USERNAME',
+    function(
+        $cookies,
+        $http,
+        $q,
+        router,
+        identity,
+        BASE_URL,
+        AUTHENTICATION_COOKIE_KEY,
+        AUTHENTICATION_COOKIE_USERNAME
+    ) {
+        function isAuthenticated() {
+            return !!$cookies.get(AUTHENTICATION_COOKIE_KEY);
+        }
+
+        function setAuthenticationCookies(token, currentUser) {
+            $cookies.put(AUTHENTICATION_COOKIE_KEY, 'Bearer ' + token);
+            $cookies.put(AUTHENTICATION_COOKIE_USERNAME, currentUser);
         }
 
         function login(userData) {
-            console.log(userData);
-            var username = userData.Username || userData.Email;
-            var newData = "grant_type=password&username=" + username + "&password=" + userData.Password;
-            console.log(newData);
+            var username = userData.Username || userData.Email,
+                newData = "grant_type=password&username=" + username + "&password=" + userData.Password,
+                response = router.post('api/Token', newData);
+
             $http.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
-            var response = router.post('api/Token', newData);
+
             response.then(function(result) {
-                setCookie(result.access_token, result.userName);
+                setAuthenticationCookies(result.access_token, result.userName);
             });
             return response;
         }
 
         function logout() {
-            console.log('Logout happened');
-
-            // function() {
-            // var deffered = $q.defer();
-            console.log($cookies.remove('!__accessUserToken__!'));
-                $cookies.remove('!__accessUserToken__!');
-                console.log($cookies.remove('!__currentUser__!'));
-                $cookies.remove('!__currentUser__!');
-            // }
-            // .then(function(result) {
-
-            // }
-                // deffered.resolve())
+            $cookies.remove(AUTHENTICATION_COOKIE_KEY);
+            $cookies.remove(AUTHENTICATION_COOKIE_USERNAME);
         }
 
         function register(userData) {
             return router.post('api/Account/Register', userData);
         }
 
+        function refreshCookie() {
+            if (isAuthenticated()) {
+                $http.defaults.headers.common.Authorization = 'Bearer ' + $cookies.get(AUTHENTICATION_COOKIE_KEY);
+                identity.requestUserProfile();
+            }
+        }
+
         return {
             loginUser: login,
             registerUser: register,
             logoutUser: logout,
+            isAuthenticated: isAuthenticated,
+            refreshCookie: refreshCookie
         };
     }
 ]);

@@ -2,18 +2,21 @@
 
 angular.module('ticketSystemApp.users.services', [])
 
-    .factory('userServices', ['router',
-        function(router) {
-            function getAllUsers() {
-                return router.get('/users', true);
-            }
-
-            function getCurrentUser() {
-                return router.get('users/me', true);
-            }
-            return {
-                allUsers: getAllUsers,
-                currentUser: getCurrentUser
-            };
+.factory('userServices', [
+    'router',
+    function(
+        router
+    ) {
+        function getAllUsers() {
+            return router.get('/users');
         }
-    ]);
+
+        function getCurrentUser() {
+            return router.get('users/me');
+        }
+        return {
+            allUsers: getAllUsers,
+            currentUser: getCurrentUser
+        };
+    }
+]);
