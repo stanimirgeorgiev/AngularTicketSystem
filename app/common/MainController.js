@@ -14,11 +14,11 @@ angular.module('ticketSystemApp.common', [])
             authentication,
             notifyingService
         ) {
-            // identity.getCurrentUser()
-            //     .then(function(user) {
-            //         $scope.currentUser = user;
-            //         $scope.isAuthenticated = true;
-            //     });
+            identity.getCurrentUser()
+                .then(function(user) {
+                    $scope.currentUser = user;
+                    $scope.isAuthenticated = true;
+                });
 
             notifyingService.subscribeIsAuthorized($scope, function() {
                 $scope.isAuthenticated = true;

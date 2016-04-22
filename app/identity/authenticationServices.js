@@ -45,7 +45,7 @@ angular.module('ticketSystemApp.identity.authentication', [])
                 setAuthenticationCookies(result.access_token, result.userName);
                 notifyingService.notifyIsAuthorized();
                 identity.requestUserProfile();
-                toastr.success('Successful login')
+                toastr.success('Successful login!');
             });
             return response;
         }
@@ -57,7 +57,7 @@ angular.module('ticketSystemApp.identity.authentication', [])
             identity.removeUserProfile();
             notifyingService.notifyIsUnauthorized();
             $location.path('/');
-            toastr.success('successful logout')
+            toastr.success('Successful logout!');
         }
 
         function register(userData) {

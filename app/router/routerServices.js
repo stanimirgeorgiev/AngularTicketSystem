@@ -47,9 +47,22 @@ angular.module('ticketSystemApp.router', [])
                 });
             return deferred.promise;
         }
+
+        function putRoute(routeParams, data) {
+            var deferred = $q.defer();
+            persistAthenticationHeader();
+            $http.put(BASE_URL + routeParams, data)
+                .then(function(result) {
+                    deferred.resolve(result.data);
+                }, function(err) {
+                    deferred.reject(err);
+                });
+            return deferred.promise;
+        }
         return {
             get: getRoute,
-            post: postRoute
+            post: postRoute,
+            put: putRoute,
         };
     }
 ]);

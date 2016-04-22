@@ -13,6 +13,8 @@ angular.module('ticketSystemApp', [
     'ticketSystemApp.logout',
     'ticketSystemApp.common',
     'ticketSystemApp.projects',
+    'ticketSystemApp.projects.services',
+    'ticketSystemApp.issue.services',
     'ticketSystemApp.libConfigs',
 ])
 
@@ -33,10 +35,6 @@ angular.module('ticketSystemApp', [
                     toastr
                 ) {
                     return {
-                        'response': function(response) {
-                            console.log(response);
-                            return response;
-                        },
                         'responseError': function(rejection) {
                             if (rejection.data && rejection.data['error_description']) {
                                 toastr.error(rejection.data['error_description']);

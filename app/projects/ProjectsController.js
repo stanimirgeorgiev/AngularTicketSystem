@@ -30,8 +30,17 @@ angular.module('ticketSystemApp.projects', [])
         }
     ])
 
-.controller('ProjectsController', ['$scope',
-    function($scope) {
-        $scope.project = 'Porblem li e tozi proekt';
+.controller('ProjectsController', [
+    '$scope',
+    'projectService',
+    function(
+        $scope,
+        projectService
+        ) {
+        projectService.getProjectsByFilter(10, 10)
+        .then(function(result) {
+            $scope.projects = result;
+        });
+        $scope.proba = 'Porblem li e tozi proekt';
     }
 ]);
