@@ -57,6 +57,7 @@ angular.module('ticketSystemApp.identity.authentication', [])
             identity.removeUserProfile();
             notifyingService.notifyIsUnauthorized();
             $location.path('/');
+
             toastr.success('Successful logout!');
         }
 

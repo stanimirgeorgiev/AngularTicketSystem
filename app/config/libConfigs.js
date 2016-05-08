@@ -11,7 +11,7 @@ toastr.options = {
   "preventDuplicates": false,
   "showDuration": "300",
   "hideDuration": "1000",
-  "timeOut": "5000",
+  "timeOut": "9000",
   "extendedTimeOut": "1000",
   "showEasing": "swing",
   "hideEasing": "linear",

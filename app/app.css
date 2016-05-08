@@ -38,7 +38,9 @@ body {
   border-radius: 5px;
   border: 2px solid lightgrey;
 }
-
+body {
+  padding: 15px;
+}
 [ng-cloak]
 {
   display: none !important;
